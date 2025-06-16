@@ -7,14 +7,14 @@
 /// - lang (str): The language code to use for formatting (e.g., "en", "zh").
 /// - region (str): The region code to use for formatting (e.g., "US", "CN").
 /// -> str
-#let sep-by-thousands(
+#let sep-by-ten-thousands(
   value,
   separators: none,
   lang: none,
   region: none,
 ) = context {
   str(
-    plg.sep_by_thousands(
+    plg.sep_by_ten_thousands(
       cbor.encode((
         lang: if lang == none { text.lang } else { lang },
         region: if region == none { text.region } else { region },
