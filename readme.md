@@ -1,7 +1,7 @@
 # CJK Num Format
 
-A typst package to handle number formats
+## Separate by Ten Thousands
 
-## Features
+Separate numbers by ten thousands (萬)
 
-Document language/region detection.
+![example image](./example.png)
