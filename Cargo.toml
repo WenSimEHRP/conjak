@@ -1,0 +1,21 @@
+[package]
+name = "cjk-num-format"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "cjk_num_format"
+crate-type = ["cdylib"]
+
+[dependencies]
+serde = { version = "1.0.219", features = ["derive"] }
+ciborium = "0.2.2"
+typst-wasm-protocol = "0.0.2"
+anyhow = "1.0.98"
+
+[profile.release]
+lto = true        # Enable link-time optimization
+strip = true      # Strip symbols from binary
+opt-level = 3     # Optimize for speed
+codegen-units = 1 # Reduce number of codegen units to increase optimizations
+panic = 'abort'   # Abort on panic

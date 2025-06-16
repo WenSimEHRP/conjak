@@ -1,0 +1,8 @@
+[package]
+name = "cjk-num-format"
+version = "0.1.0"
+compiler = "0.13.1"
+entrypoint = "./src/lib.typ"
+repository = "https://github.com/wensimehrp/cjk-num-format"
+authors = ["Jeremy Gao <@wensimehrp>"]
+license = "MIT"
