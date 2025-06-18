@@ -1,6 +1,6 @@
 # CJK Num Format <!--raw-typst<markdown-ignore>-->
 
-Simple typst package for CJK number formatting. <!--raw-typst<markdown-ignore>-->
+Simple typst package for CJK number formatting. Please refer to the [document](./docs.pdf) for information about each function. <!--raw-typst<markdown-ignore>-->
 
 ## Goals
 
