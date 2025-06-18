@@ -6,6 +6,8 @@
 #import "@preview/zebraw:0.5.5": *
 #show: zebraw.with(..zebraw-themes.zebra)
 #let version = sys.inputs.at("version", default: "INDEV")
+// somehow this line was not working. Probably because of nixos?
+#let date = sys.inputs.at("date", default: datetime.today().display())
 #set page(
   paper: "a4",
   header: context {
@@ -32,7 +34,7 @@
 
   #v(1fr)
 
-  *#version* #h(1em) #datetime.today().display()
+  *#version* #h(1em) #date
 
   #link("https://github.com/wensimehrp/cjk-num-format")
 
