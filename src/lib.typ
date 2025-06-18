@@ -231,7 +231,7 @@
     ko: "레와",
   )
   if date < meiji {
-    cjk-date-format(date)
+    cjk-date-format(date, arabic: arabic)
   } else if date < taisho {
     cjk-date-format(pfx: meiji-pfx, date, established: meiji.year(), arabic: arabic)
   } else if date < showa {
