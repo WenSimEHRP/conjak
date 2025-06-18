@@ -77,7 +77,7 @@
     } else if year == 0 {
       pfx + first-year
     } else {
-      pfx + str(year) + year-str
+      pfx + str(year + 1) + year-str
     }
   } else {
     if year < 0 {
@@ -85,10 +85,10 @@
     } else if year == 0 {
       pfx + first-year
     } else if year <= 100 {
-      pfx + numbering("一", year) + year-str
+      pfx + numbering("一", year + 1) + year-str
     } else {
       let year-char-map = "〇一二三四五六七八九十".clusters()
-      let y = year
+      let y = year + 1
       let ret = ""
       while y != 0 {
         ret = year-char-map.at(calc.rem(y, 10)) + ret
@@ -111,7 +111,7 @@
   pfx: none,
   negative-pfx: none,
   date,
-  established: 0,
+  established: 1,
   arabic: auto,
 ) = context {
   let arabic = arabic
