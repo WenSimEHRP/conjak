@@ -4,7 +4,7 @@
 #let current-chapter = state("chapter", none)
 #import "@preview/zebraw:0.5.5": *
 #show: zebraw.with(..zebraw-themes.zebra)
-#let version = [INDEV]
+#let version = sys.inputs.at("version", default: "INDEV")
 #set page(
   paper: "a4",
   header: context {
