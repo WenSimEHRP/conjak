@@ -19,3 +19,5 @@ I do not aim to cover all possible utilities related to CJK number formatting, b
 **DISCLAIMER**: I am not a Japanese nor a Korean expert, so I have relied on existing resources (i.e. Wikipedia, LLM) to implement features for these languages. If you find any mistakes or have suggestions for improvements, please let me know.
 
 Functions provided by this library can adapt to the current text language and region (hence their outputs are `content` but not `string` or `int`). See each function's documentation for details.
+
+![Example](./example.svg)
