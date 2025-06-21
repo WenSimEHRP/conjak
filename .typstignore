@@ -10,3 +10,4 @@ Cargo*
 build
 make_doc
 *.svg
+docs.typ
