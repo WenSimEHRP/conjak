@@ -5,5 +5,7 @@ mkShell {
     coreutils
     typst
     poop
+    git
+    sarasa-gothic
   ];
 }
