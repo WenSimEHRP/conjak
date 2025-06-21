@@ -3,11 +3,10 @@
 /// Generate a string with the given value formatted with thousands separators.
 /// ```example
 /// #set text(lang: "ja", region: "jp")
-/// #let c = cjk-num-format
-/// #c.sep-by-ten-thousands(12345670000000)\
-/// #c.sep-by-ten-thousands(1145141919810)\
-/// #c.sep-by-ten-thousands(1145141919810000)\
-/// #c.sep-by-ten-thousands(135700012255)\
+/// #cnm.sep-by-ten-thousands(12345670000000)\
+/// #cnm.sep-by-ten-thousands(1145141919810)\
+/// #cnm.sep-by-ten-thousands(1145141919810000)\
+/// #cnm.sep-by-ten-thousands(135700012255)\
 /// ```
 ///
 /// - value (int): The number to format.
@@ -143,21 +142,21 @@
 
 /// Format a date in CJK style, including the year, month, and day.
 /// ```example
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )
 /// ```
 ///
 /// - pfx (str, content): Prefix for the date string.
 /// ```example
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   pfx: "西元",
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )
 /// ```
 /// - negative-pfx (str, content): Prefix for negative years.
 /// ```example
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   negative-pfx: "西元前",
 ///   datetime(year: -2023, month: 10, day: 1),
 /// )
@@ -166,58 +165,58 @@
 /// - established (int): The year when the era was established.
 /// - arabic (auto, bool): Whether to use Arabic numerals for the year.
 /// ```example
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   arabic: true,
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )
 /// ```
 /// - alternative-january (auto, bool): Whether to use "元月" for January.
 /// ```example
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   alternative-january: true,
 ///   datetime(year: 2023, month: 1, day: 1),
 /// )
 /// ```
 /// - alternative-20 (auto, bool): Whether to use the alternative 2x day format (廿x)
 /// ```example
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   alternative-20: true,
 ///   datetime(year: 2023, month: 2, day: 20),
 /// )\
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   alternative-20: true,
 ///   datetime(year: 2023, month: 2, day: 25),
 /// )
 /// ```
 /// - alternative-30 (auto, bool): Whether to use the alternative 3x day format (卅x).
 /// ```example
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   alternative-30: true,
 ///   datetime(year: 2023, month: 3, day: 30),
 /// )\
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   alternative-30: true,
 ///   datetime(year: 2023, month: 3, day: 31),
 /// )
 /// ```
 /// - weekday (auto, bool, array): Whether to include the weekday in the format. The first day of the week is Monday.
 /// ```example
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   weekday: true,
 ///   datetime(year: 2025, month: 6, day: 22),
 /// )\
 /// #set text(lang: "ja")
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   weekday: auto,
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )\
 /// #set text(lang: "ko")
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   weekday: true,
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )\
 /// #set text(lang: "zh")
-/// #cjk-num-format.cjk-date-format(
+/// #cnm.cjk-date-format(
 ///   weekday: ("牛奶奶", "柳奶奶", "卖牛奶", "柳奶", "流奶", [牛奶], [椰奶！]),
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )
@@ -345,19 +344,19 @@
 
 /// Format a date in the Republic of China (ROC) calendar style.
 /// ```example
-/// #cjk-num-format.roc-date-format(
+/// #cnm.roc-date-format(
 ///   datetime(year: 1949, month: 9, day: 30),
 /// )\
-/// #cjk-num-format.roc-date-format(
+/// #cnm.roc-date-format(
 ///   datetime(year: 1912, month: 10, day: 1),
 /// )\
-/// #cjk-num-format.roc-date-format(
+/// #cnm.roc-date-format(
 ///   datetime(year: 1910, month: 10, day: 1),
 /// )\
-/// #cjk-num-format.roc-date-format(
+/// #cnm.roc-date-format(
 ///   datetime(year: 2025, month: 10, day: 1),
 /// )\
-/// #cjk-num-format.roc-date-format(
+/// #cnm.roc-date-format(
 ///   datetime(year: 2025, month: 10, day: 1),
 ///   arabic: true,
 /// )
@@ -417,13 +416,13 @@
 
 /// Format a date in the Japanese era style (e.g., Meiji, Taisho, Showa, Heisei, Reiwa).
 /// ```example
-/// #cjk-num-format.japan-date-format(
+/// #cnm.japan-date-format(
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )\
-/// #cjk-num-format.japan-date-format(
+/// #cnm.japan-date-format(
 ///   datetime(year: 1989, month: 1, day: 6),
 /// )\
-/// #cjk-num-format.japan-date-format(
+/// #cnm.japan-date-format(
 ///   datetime(year: 1989, month: 1, day: 7),
 /// )
 /// ```
@@ -479,9 +478,9 @@
 
 /// Format a number in Chinese currency style. This function is based on ```typ numbering("壹", v)``` but adds units for the whole number and the first two decimal places.
 /// ```example
-/// #cjk-num-format.daxie(123456)\
-/// #cjk-num-format.daxie(8642.99)\
-/// #cjk-num-format.daxie(2356, u1: "圆", whole: "正")
+/// #cnm.daxie(123456)\
+/// #cnm.daxie(8642.99)\
+/// #cnm.daxie(2356, u1: "圆", whole: "正")
 /// ```
 ///
 /// - v (int, float): The value to format.

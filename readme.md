@@ -1,6 +1,6 @@
-# CJK Num Format <!--raw-typst<markdown-ignore>-->
+# CJK Num Format
 
-Simple typst package for CJK number formatting. <!--raw-typst<markdown-ignore>--> [Check the `docs.pdf` file in the releases](https://github.com/WenSimEHRP/cjk-num-format/releases/latest) <!--raw-typst<markdown-ignore>--> for information about each function. <!--raw-typst<markdown-ignore>-->
+**C**JK **N**u**m** format (abbreviated **CNM**) is a simple typst package for CJK number formatting. [Check the `docs.pdf` file in the releases](https://github.com/WenSimEHRP/cjk-num-format/releases/latest) for information about each function.
 
 ## Goals
 
@@ -20,4 +20,4 @@ I do not aim to cover all possible utilities related to CJK number formatting, b
 
 Functions provided by this library can adapt to the current text language and region (hence their outputs are `content` but not `string` or `int`). See each function's documentation for details.
 
-![Example](./example.svg)
+![Example](https://raw.githubusercontent.com/WenSimEHRP/cnm/master/example.svg)

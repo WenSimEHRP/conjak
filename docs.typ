@@ -29,13 +29,14 @@
 #[
   #set align(center)
   = CJK Num Format
+  Abbreviated as *CNM*.\
   Format dates and numbers.
 
   #v(1fr)
 
   *#version* #h(1em) #date
 
-  #link("https://github.com/wensimehrp/cjk-num-format")
+  #link("https://github.com/wensimehrp/cnm")
 
   Created by Jeremy Gao
 
@@ -62,6 +63,15 @@ I do not aim to cover all possible utilities related to CJK number formatting, b
 
 Functions provided by this library can adapt to the current text language and region (hence their outputs are `content` but not `string` or `int`). See each function's documentation for details.
 
+== Abbreviation
+
+I specifically chose the abbreviation "CNM" for this library. Think of it as "CJK Num". This is for these reasons:
+
+- It is short and easy to remember.
+- It is not a common abbreviation, so it is unlikely to conflict with other libraries or tools.
+- It connects with the CJK languages (the first entry in the default fallback language list is "zh", for which the default fallback sequence's first entry is "CN", which are the first two letters of "CNM").
+- It satisfies the package name requirements: CJK Num Format is too canonical.
+
 == Library Functions
 
 #{
@@ -74,7 +84,7 @@ Functions provided by this library can adapt to the current text language and re
     read("src/lib.typ"),
     old-syntax: true,
     scope: (
-      cjk-num-format: lib,
+      cnm: lib,
     ),
   )
   tidy.show-module(

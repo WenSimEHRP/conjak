@@ -9,3 +9,4 @@ example.typ
 Cargo*
 build
 make_doc
+*.svg
