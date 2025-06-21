@@ -1,0 +1,11 @@
+target
+.github
+shell.nix
+*.rs
+.gitignore
+.typstignore
+.envrc
+example.typ
+Cargo*
+build
+make_doc
