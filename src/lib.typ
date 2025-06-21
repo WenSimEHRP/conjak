@@ -172,8 +172,56 @@
 /// )
 /// ```
 /// - alternative-january (auto, bool): Whether to use "元月" for January.
+/// ```example
+/// #cjk-num-format.cjk-date-format(
+///   alternative-january: true,
+///   datetime(year: 2023, month: 1, day: 1),
+/// )
+/// ```
 /// - alternative-20 (auto, bool): Whether to use the alternative 2x day format (廿x)
+/// ```example
+/// #cjk-num-format.cjk-date-format(
+///   alternative-20: true,
+///   datetime(year: 2023, month: 2, day: 20),
+/// )\
+/// #cjk-num-format.cjk-date-format(
+///   alternative-20: true,
+///   datetime(year: 2023, month: 2, day: 25),
+/// )
+/// ```
 /// - alternative-30 (auto, bool): Whether to use the alternative 3x day format (卅x).
+/// ```example
+/// #cjk-num-format.cjk-date-format(
+///   alternative-30: true,
+///   datetime(year: 2023, month: 3, day: 30),
+/// )\
+/// #cjk-num-format.cjk-date-format(
+///   alternative-30: true,
+///   datetime(year: 2023, month: 3, day: 31),
+/// )
+/// ```
+/// - weekday (auto, bool, array): Whether to include the weekday in the format. The first day of the week is Monday.
+/// ```example
+/// #cjk-num-format.cjk-date-format(
+///   weekday: true,
+///   datetime(year: 2025, month: 6, day: 22),
+/// )\
+/// #set text(lang: "ja")
+/// #cjk-num-format.cjk-date-format(
+///   weekday: auto,
+///   datetime(year: 2023, month: 10, day: 1),
+/// )\
+/// #set text(lang: "ko")
+/// #cjk-num-format.cjk-date-format(
+///   weekday: true,
+///   datetime(year: 2023, month: 10, day: 1),
+/// )\
+/// #set text(lang: "zh")
+/// #cjk-num-format.cjk-date-format(
+///   weekday: ("牛奶奶", "柳奶奶", "卖牛奶", "柳奶", "流奶", [牛奶], [椰奶！]),
+///   datetime(year: 2023, month: 10, day: 1),
+/// )
+/// ```
 /// -> content
 #let cjk-date-format(
   pfx: none,
@@ -184,6 +232,7 @@
   alternative-january: auto,
   alternative-20: auto,
   alternative-30: auto,
+  weekday: false,
 ) = context {
   let arabic = arabic
   let alternative-january = if alternative-january == auto {
@@ -247,6 +296,50 @@
     }
       + day-str
   )
+  if weekday != false {
+    let weekday-strings = if weekday == auto or weekday == true {
+      (
+        flex-content(
+          zh: "周一",
+          ja: "(月)",
+          ko: "월요일",
+        ),
+        flex-content(
+          zh: "周二",
+          ja: "(火)",
+          ko: "화요일",
+        ),
+        flex-content(
+          zh: "周三",
+          ja: "(水)",
+          ko: "수요일",
+        ),
+        flex-content(
+          zh: "周四",
+          ja: "(木)",
+          ko: "목요일",
+        ),
+        flex-content(
+          zh: "周五",
+          ja: "(金)",
+          ko: "금요일",
+        ),
+        flex-content(
+          zh: "周六",
+          ja: "(土)",
+          ko: "토요일",
+        ),
+        flex-content(
+          zh: "周日",
+          ja: "(日)",
+          ko: "일요일",
+        ),
+      )
+    } else if type(weekday) == array {
+      weekday
+    }
+    ret += weekday-strings.at(date.weekday() - 1)
+  }
   ret
 }
 
