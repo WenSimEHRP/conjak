@@ -34,43 +34,51 @@
   )
 }
 
-/// Generate a smart CJK content based on the language and region.
+#let fallback(data, seq, default: none) = {
+  if seq.len() == 0 {
+    return default
+  }
+  data.at(seq.at(0), default: fallback(data, seq.slice(1), default: default))
+}
+
+///  Generate something here
 ///
-/// - zh (dict, str): String(s) for Chinese. You can optionally provide a dictionary with keys `cn`, `tw`, `hk`, etc. to specify different strings for different regions. `HK`, `MO`, and `TW` will default to the `tw` string, while other regions (e.g., Singapore) will default to the `cn` string.
-/// - ja (str): String for Japanese.
-/// - ko (str): String for Korean.
+/// - fallback-sequence (dict): The fallback sequence in case the language or region is not supported.
 /// -> content
 #let cjk-content(
-  zh: none,
-  ja: none,
-  ko: none,
+  fallback-sequence: (
+    zh: (
+      cn: ("sg", "tw", "hk", "mo"),
+      tw: ("hk", "mo", "cn", "sg"),
+      sg: ("cn", "tw", "hk", "mo"),
+      hk: ("tw", "cn", "sg", "mo"),
+      mo: ("tw", "cn", "sg", "hk"),
+      default: ("cn", "tw", "hk", "mo", "sg"),
+    ),
+    // how did I even come up with this?
+    default: ("zh", "ja", "en", "ko"),
+  ),
+  ..args,
 ) = context {
-  if text.lang == "zh" {
-    if type(zh) == str {
-      return zh
-    }
-    zh.at(
-      lower(text.region),
+  let (l, r) = (text.lang, text.region)
+  if r == none {
+    r = "default"
+  } else {
+    r = lower(r)
+  }
+  let a = args.at(l, default: fallback(args.named(), fallback-sequence.default))
+  if type(a) == str {
+    a
+  } else if type(a) == dictionary {
+    a.at(
+      r,
       default: {
-        if lower(text.region) in ("hk", "mo", "tw") {
-          zh.tw
-        } else {
-          zh.cn
-        }
+        fallback(a, fallback-sequence.at(l, default: (:)).at(r, default: ()))
       },
     )
-  } else if text.lang == "ja" {
-    ja
-  } else if text.lang == "ko" {
-    ko
-  } else {
-    if type(zh) == str {
-      zh
-    } else {
-      zh.cn
-    }
   }
 }
+
 
 #let _year-with-beginning(pfx, negative-pfx: none, year, arabic) = {
   let year-str = cjk-content(
@@ -142,6 +150,9 @@
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )
 /// ```
+/// - alternative-january (auto, bool): Whether to use "元月" for January.
+/// - alternative-20 (auto, bool): Whether to use the alternative 2x day format (廿x)
+/// - alternative-30 (auto, bool): Whether to use the alternative 3x day format (卅x).
 /// -> content
 #let cjk-date-format(
   pfx: none,
@@ -149,8 +160,26 @@
   date,
   established: 1,
   arabic: auto,
+  alternative-january: auto,
+  alternative-20: auto,
+  alternative-30: auto,
 ) = context {
   let arabic = arabic
+  let alternative-january = if alternative-january == auto {
+    false
+  } else {
+    alternative-january
+  }
+  let alternative-20 = if alternative-20 == auto {
+    false
+  } else {
+    alternative-20
+  }
+  let alternative-30 = if alternative-30 == auto {
+    false
+  } else {
+    alternative-30
+  }
   if arabic == auto {
     if text.lang == "ko" {
       arabic = true
@@ -170,8 +199,33 @@
   )
   let ret = ""
   ret += _year-with-beginning(pfx, negative-pfx: negative-pfx, date.year() - established, arabic)
-  ret += if arabic { str(date.month()) } else { numbering("一", date.month()) } + month-str
-  ret += if arabic { str(date.day()) } else { numbering("一", date.day()) } + day-str
+  ret += (
+    if arabic {
+      str(date.month())
+    } else {
+      let a = numbering("一", date.month())
+      if alternative-january {
+        a = a.replace("一", "元")
+      }
+      a
+    }
+      + month-str
+  )
+  ret += (
+    if arabic {
+      str(date.day())
+    } else {
+      let a = numbering("一", date.day())
+      if alternative-20 {
+        a = a.replace("二十", "廿")
+      }
+      if alternative-30 {
+        a = a.replace("三十", "卅")
+      }
+      a
+    }
+      + day-str
+  )
   ret
 }
 
@@ -198,9 +252,8 @@
 /// - pfx (str, content): Prefix for the date string.
 /// - negative-pfx (str, content): Prefix for negative years.
 /// - date (datetime): The date to format.
-/// - arabic (auto, bool): Whether to use Arabic numerals for the year.
 /// -> content
-#let roc-date-format(date, pfx: auto, negative-pfx: auto, arabic: auto) = {
+#let roc-date-format(date, pfx: auto, negative-pfx: auto, ..args) = {
   let default-pfx = cjk-content(
     zh: (cn: "民国", tw: "民國"),
     ja: "民国",
@@ -216,7 +269,7 @@
     negative-pfx: if negative-pfx == auto { default-negative-pfx } else { negative-pfx },
     date,
     established: 1912,
-    arabic: arabic,
+    ..args,
   )
 }
 
@@ -225,9 +278,8 @@
 /// - pfx (str, content): Prefix for the date string.
 /// - negative-pfx (str, content): Prefix for negative years.
 /// - date (datetime): The date to format.
-/// - arabic (auto, bool): Whether to use Arabic numerals for the year.
 /// -> content
-#let juche-date-format(date, pfx: auto, negative-pfx: auto, arabic: auto) = {
+#let juche-date-format(date, pfx: auto, negative-pfx: auto, ..args) = {
   let default-pfx = cjk-content(
     zh: (cn: "主体", tw: "主體"),
     ja: "主体",
@@ -243,7 +295,7 @@
     negative-pfx: if negative-pfx == auto { default-negative-pfx } else { negative-pfx },
     date,
     established: 1912,
-    arabic: arabic,
+    ..args,
   )
 }
 
@@ -260,9 +312,8 @@
 /// )
 /// ```
 /// - date (datetime): The date to format.
-/// - arabic (bool, auto): Whether to use Arabic numerals for the year.
 /// -> content
-#let japan-date-format(date, arabic: auto) = {
+#let japan-date-format(date, ..args) = {
   let meiji = datetime(year: 1868, month: 9, day: 1)
   let taisho = datetime(year: 1912, month: 7, day: 30)
   let showa = datetime(year: 1926, month: 12, day: 25)
@@ -295,17 +346,17 @@
     ko: "레와",
   )
   if date < meiji {
-    cjk-date-format(date, arabic: arabic)
+    cjk-date-format(date, ..args)
   } else if date < taisho {
-    cjk-date-format(pfx: meiji-pfx, date, established: meiji.year(), arabic: arabic)
+    cjk-date-format(pfx: meiji-pfx, date, established: meiji.year(), ..args)
   } else if date < showa {
-    cjk-date-format(pfx: taisho-pfx, date, established: taisho.year(), arabic: arabic)
+    cjk-date-format(pfx: taisho-pfx, date, established: taisho.year(), ..args)
   } else if date < heisei {
-    cjk-date-format(pfx: showa-pfx, date, established: showa.year(), arabic: arabic)
+    cjk-date-format(pfx: showa-pfx, date, established: showa.year(), ..args)
   } else if date < reiwa {
-    cjk-date-format(pfx: heisei-pfx, date, established: heisei.year(), arabic: arabic)
+    cjk-date-format(pfx: heisei-pfx, date, established: heisei.year(), ..args)
   } else {
-    cjk-date-format(pfx: reiwa-pfx, date, established: reiwa.year(), arabic: arabic)
+    cjk-date-format(pfx: reiwa-pfx, date, established: reiwa.year(), ..args)
   }
 }
 
