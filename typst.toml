@@ -6,3 +6,6 @@ entrypoint = "./src/lib.typ"
 repository = "https://github.com/wensimehrp/cjk-num-format"
 authors = ["Jeremy Gao <@wensimehrp>"]
 license = "MIT"
+description = "Format numbers in CJK conventions"
+disciplines = ["history", "education"]
+categories = ["languages", "utility", "scripting"]
