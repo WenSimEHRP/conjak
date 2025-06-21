@@ -25,7 +25,7 @@ jobs:
 
       - name: Build with Nix
         run: |
-          nix-shell --run "./make_doc"
+          nix-shell --run "typst fonts"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
