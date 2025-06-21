@@ -41,18 +41,39 @@
   data.at(seq.at(0), default: fallback(data, seq.slice(1), default: default))
 }
 
-///  Generate something here
+/// A flexible content function that returns a value based on the current language and region.
 ///
+/// - ..args (named arguments): Named arguments that can be used to specify the content for different languages and regions.
+/// Example:
+/// ```typ
+/// #flex-content(
+///   ja: "for Japanese",
+///   ko: "for Korean",
+///   zh: (
+///    cn: [For China Mainland],
+///    sg: 123123,
+///    tw: "for Taiwan",
+///   ),
+///   en: (
+///    ie: "Aye class!",
+///    us: [Ishowmeat],
+///    gb: 3443.234,
+///   )
+/// )
+/// ```
 /// - fallback-sequence (dict): The fallback sequence in case the language or region is not supported.
 /// -> content
-#let cjk-content(
+#let flex-content(
   fallback-sequence: (
     zh: (
+      // Simplified Realms
       cn: ("sg", "tw", "hk", "mo"),
-      tw: ("hk", "mo", "cn", "sg"),
       sg: ("cn", "tw", "hk", "mo"),
+      // Traditional Funland
+      tw: ("hk", "mo", "cn", "sg"),
       hk: ("tw", "cn", "sg", "mo"),
       mo: ("tw", "cn", "sg", "hk"),
+      // Standard(R)
       default: ("cn", "tw", "hk", "mo", "sg"),
     ),
     // how did I even come up with this?
@@ -81,12 +102,12 @@
 
 
 #let _year-with-beginning(pfx, negative-pfx: none, year, arabic) = {
-  let year-str = cjk-content(
+  let year-str = flex-content(
     zh: "年",
     ja: "年",
     ko: "년",
   )
-  let first-year = cjk-content(
+  let first-year = flex-content(
     zh: "元年",
     ja: "元年",
     ko: "원년",
@@ -187,12 +208,12 @@
       arabic = false
     }
   }
-  let month-str = cjk-content(
+  let month-str = flex-content(
     zh: "月",
     ja: "月",
     ko: "월",
   )
-  let day-str = cjk-content(
+  let day-str = flex-content(
     zh: "日",
     ja: "日",
     ko: "일",
@@ -252,14 +273,15 @@
 /// - pfx (str, content): Prefix for the date string.
 /// - negative-pfx (str, content): Prefix for negative years.
 /// - date (datetime): The date to format.
+/// - ..args (named arguments): Additional arguments for customization. See @cjk-date-format for details.
 /// -> content
 #let roc-date-format(date, pfx: auto, negative-pfx: auto, ..args) = {
-  let default-pfx = cjk-content(
+  let default-pfx = flex-content(
     zh: (cn: "民国", tw: "民國"),
     ja: "民国",
     ko: "민국",
   )
-  let default-negative-pfx = cjk-content(
+  let default-negative-pfx = flex-content(
     zh: "民前",
     ja: "民国前",
     ko: "민국전",
@@ -278,14 +300,15 @@
 /// - pfx (str, content): Prefix for the date string.
 /// - negative-pfx (str, content): Prefix for negative years.
 /// - date (datetime): The date to format.
+/// - ..args (named arguments): Additional arguments for customization. See @cjk-date-format for details.
 /// -> content
 #let juche-date-format(date, pfx: auto, negative-pfx: auto, ..args) = {
-  let default-pfx = cjk-content(
+  let default-pfx = flex-content(
     zh: (cn: "主体", tw: "主體"),
     ja: "主体",
     ko: "주체",
   )
-  let default-negative-pfx = cjk-content(
+  let default-negative-pfx = flex-content(
     zh: "主体前",
     ja: "主体前",
     ko: "주체전",
@@ -312,6 +335,7 @@
 /// )
 /// ```
 /// - date (datetime): The date to format.
+/// - ..args (named arguments): Additional arguments for customization. See @cjk-date-format for details.
 /// -> content
 #let japan-date-format(date, ..args) = {
   let meiji = datetime(year: 1868, month: 9, day: 1)
@@ -320,27 +344,27 @@
   let heisei = datetime(year: 1989, month: 1, day: 7)
   let reiwa = datetime(year: 2019, month: 4, day: 30)
   // match the datetime
-  let meiji-pfx = cjk-content(
+  let meiji-pfx = flex-content(
     zh: "明治",
     ja: "明治",
     ko: "명치",
   )
-  let taisho-pfx = cjk-content(
+  let taisho-pfx = flex-content(
     zh: "大正",
     ja: "大正",
     ko: "대정",
   )
-  let showa-pfx = cjk-content(
+  let showa-pfx = flex-content(
     zh: "昭和",
     ja: "昭和",
     ko: "쇼와",
   )
-  let heisei-pfx = cjk-content(
+  let heisei-pfx = flex-content(
     zh: "平成",
     ja: "平成",
     ko: "헤이세이",
   )
-  let reiwa-pfx = cjk-content(
+  let reiwa-pfx = flex-content(
     zh: "令和",
     ja: "令和",
     ko: "레와",
