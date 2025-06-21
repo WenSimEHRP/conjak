@@ -6,6 +6,7 @@ mkShell {
     typst
     poop
     git
+    fontconfig
     sarasa-gothic
   ];
 }
