@@ -12,3 +12,4 @@ make_doc
 *.svg
 *.png
 docs.typ
+*.jpg
