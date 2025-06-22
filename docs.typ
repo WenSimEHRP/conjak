@@ -13,7 +13,7 @@
     let a = counter(page).get()
     if a.at(0) != 1 {
       [
-        _#current-chapter.get()_ #h(1fr) CJK Num Format #h(1em) *#version*
+        _#current-chapter.get()_ #h(1fr) Conjak #h(1em) *#version*
       ]
     }
   },
@@ -28,15 +28,14 @@
 }
 #[
   #set align(center)
-  = CJK Num Format
-  Abbreviated as *CNM*.\
+  = Conjak
   Format dates and numbers.
 
   #v(1fr)
 
   *#version* #h(1em) #date
 
-  #link("https://github.com/wensimehrp/cnm")
+  #link("https://github.com/wensimehrp/conjak")
 
   Created by Jeremy Gao
 
@@ -59,18 +58,25 @@ I do not aim to cover all possible utilities related to CJK number formatting, b
 
 === Localization
 
-*DISCLAIMER*: I am not a Japanese nor a Korean expert, so I have relied on existing resources (i.e. Wikipedia, LLM) to implement features for these languages. If you find any mistakes or have suggestions for improvements, please let me know.
+*DISCLAIMER*: I am not a Japanese nor a Korean expert, so I have relied on existing resources
+(i.e. Wikipedia, LLM) to implement features for these languages. If you find any mistakes or have suggestions for improvements, please let me know.
 
-Functions provided by this library can adapt to the current text language and region (hence their outputs are `content` but not `string` or `int`). See each function's documentation for details.
+Functions provided by this library can adapt to the current text language and region
+(hence their outputs are `content` but not `string` or `int`). See each function's documentation for details.
 
-== Abbreviation
+== Name
 
-I specifically chose the abbreviation "CNM" for this library. Think of it as "CJK Num". This is for these reasons:
+The name "Conjak" is derived from "Konjac", a type of plant that is commonly used in East Asian cuisine. The "K" and "C" are swapped to distinguish the package name from the plant.
 
-- It is short and easy to remember.
-- It is not a common abbreviation, so it is unlikely to conflict with other libraries or tools.
-- It connects with the CJK languages (the first entry in the default fallback language list is "zh", for which the default fallback sequence's first entry is "CN", which are the first two letters of "CNM").
-- It satisfies the package name requirements: CJK Num Format is too canonical.
+Here's a picture of konjac:
+
+#figure(
+  image("konjac.jpg"),
+  caption: [
+    Processed konjac\
+    #link("https://commons.wikimedia.org/w/index.php?curid=3106408")[By: chidorian - Flickr, CC BY-SA 2.0]
+  ],
+)
 
 == Library Functions
 
@@ -84,7 +90,7 @@ I specifically chose the abbreviation "CNM" for this library. Think of it as "CJ
     read("src/lib.typ"),
     old-syntax: true,
     scope: (
-      cnm: lib,
+      conjak: lib,
     ),
   )
   tidy.show-module(

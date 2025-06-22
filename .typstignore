@@ -10,4 +10,5 @@ Cargo*
 build
 make_doc
 *.svg
+*.png
 docs.typ

@@ -9,7 +9,9 @@ let
 in
 mkShell {
   nativeBuildInputs = [
-    rustup
+    rustc
+    cargo
+    lld
     coreutils
     typst
     poop

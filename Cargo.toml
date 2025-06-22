@@ -1,10 +1,10 @@
 [package]
-name = "cjk-num-format"
+name = "conjak"
 version = "0.1.0"
 edition = "2024"
 
 [lib]
-name = "cjk_num_format"
+name = "conjak"
 crate-type = ["cdylib"]
 
 [dependencies]
