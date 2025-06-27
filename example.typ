@@ -37,6 +37,17 @@
     #daxie(1145141919810, u1: "圆", whole: "正")\
     #daxie(123.45)\
   ],
+  [
+    Lunar calendar:\
+    #for it in (
+      datetime(year: 2025, month: 6, day: 17),
+      datetime(year: 2023, month: 10, day: 18),
+      datetime(year: 1912, month: 6, day: 19),
+      datetime(year: 1901, month: 12, day: 20),
+    ) {
+      to_lunar(it) + linebreak()
+    }
+  ],
   ..range(4).map(i => grid.hline(y: i))
 )
 

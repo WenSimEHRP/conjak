@@ -511,3 +511,38 @@
   }
   ret
 }
+
+/// Convert a date to the lunar calendar format.
+///
+/// - date (datetime): The date to convert to the lunar calendar.
+/// ->
+#let to_lunar(
+  date,
+) = {
+  let data = cbor(
+    plg.solar_to_lunisolar(
+      cbor.encode((
+        year: date.year(),
+        month: date.month(),
+        day: date.day(),
+      )),
+    ),
+  )
+  (
+    data.year
+      + "年"
+      + numbering("一", data.month)
+      + "月"
+      + (
+        if data.day <= 10 {
+          "初" + numbering("一", data.day)
+        } else if data.day <= 20 {
+          numbering("一", data.day)
+        } else if data.day < 30 {
+          "廿" + numbering("一", calc.rem(data.day, 20))
+        } else {
+          "三十"
+        }
+      )
+  )
+}

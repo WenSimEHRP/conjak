@@ -12,6 +12,7 @@ serde = { version = "1.0.219", features = ["derive"] }
 ciborium = "0.2.2"
 typst-wasm-protocol = "0.0.2"
 anyhow = "1.0.98"
+chinese-lunisolar-calendar = "0.2.0"
 
 [profile.release]
 lto = true        # Enable link-time optimization
