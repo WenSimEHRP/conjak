@@ -3,20 +3,15 @@ let
   fonts = makeFontsConf {
     fontDirectories = [
       sarasa-gothic
-      ubuntu-sans
     ];
   };
 in
 mkShell {
   nativeBuildInputs = [
-    rustc
-    cargo
-    lld
+    rustup
     coreutils
     typst
-    poop
     sarasa-gothic
-    ubuntu-sans
   ];
   shellHook = ''
     export FONTCONFIG_FILE=${fonts}
