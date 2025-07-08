@@ -1,0 +1,17 @@
+[package]
+name = "conjak-number"
+version = "0.1.0"
+authors = ["Jeremy Gao <wensimehrp@gmail.com>", "Magic Len <len@magiclen.org>"]
+edition = "2024"
+rust-version = "1.88"
+repository = "https://github.com/wensimehrp/conjak"
+homepage = "https://typst.app/universe/packages/conjak"
+license = "MIT"
+
+[dependencies]
+enum-ordinalize = "4.2"
+num-bigint = "0.4"
+num-traits = "0.2"
+
+[dev-dependencies]
+assert-eq-float = "0.1"
