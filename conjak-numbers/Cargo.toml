@@ -1,5 +1,5 @@
 [package]
-name = "conjak-number"
+name = "conjak-numbers"
 version = "0.1.0"
 authors = ["Jeremy Gao <wensimehrp@gmail.com>", "Magic Len <len@magiclen.org>"]
 edition = "2024"
