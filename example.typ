@@ -12,7 +12,7 @@
     #set text(lang: it.at(0), region: it.at(1))
     #sep-by-ten-thousands(12315649494)\
     #sep-by-ten-thousands(1145141919810)\
-    #sep-by-ten-thousands(1000000010010)\
+    #sep-by-ten-thousands(10086)\
     #cjk-date-format(datetime(year: 1949, month: 7, day: 1))\
     #cjk-date-format(datetime(year: 2000, month: 12, day: 31))\
     #cjk-date-format(datetime(year: 1949, month: 7, day: 30), arabic: true)\
@@ -30,13 +30,6 @@
     #juche-date-format(datetime(year: 2025, month: 6, day: 17))\
     #juche-date-format(datetime(year: 1912, month: 6, day: 17))\
   ]),
-  [
-    Daxie:\
-    #set text(lang: "zh", region: "cn")
-    #daxie(1234567890)\
-    #daxie(1145141919810, u1: "圆", whole: "正")\
-    #daxie(123.45)\
-  ],
   [
     Lunar calendar:\
     #for it in (

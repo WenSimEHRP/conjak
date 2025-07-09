@@ -1,4 +1,7 @@
-#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+use serde::Deserialize;
+
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash, Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub enum NumberScript {
     SimplifiedChinese(ScriptStyle),
     TraditionalChinese(ScriptStyle),
@@ -6,7 +9,8 @@ pub enum NumberScript {
     Korean(ScriptStyle),
 }
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Hash, Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub enum ScriptStyle {
     Upper,
     Lower { circle_as_zero: bool },

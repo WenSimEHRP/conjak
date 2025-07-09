@@ -9,25 +9,64 @@
 /// #conjak.sep-by-ten-thousands(135700012255)\
 /// ```
 ///
-/// - value (int): The number to format.
-/// - separators (array): An array of strings to use as thousands separators.
-/// - lang (str): The language code to use for formatting (e.g., "en", "zh").
-/// - region (str): The region code to use for formatting (e.g., "US", "CN").
+/// - value (int | float): The number to format
+/// - daxie (bool): Whether or not to use "大写" or "大字"
+/// - maru-zero (bool): Whether or not to use "〇" as zero
+/// - count-method (str): The counting method to use. Can be "high", "middle", "low", or "ten_thousand"
 /// -> str
 #let sep-by-ten-thousands(
   value,
-  separators: none,
-  lang: none,
-  region: none,
+  daxie: false,
+  maru-zero: false,
+  count-method: "ten_thousand",
 ) = context {
-  // we're not using `numbering` here because `numbering('壹', xxx) doesn't support korean`
+  if daxie and maru-zero {
+    panic("You cannot use both 'daxie' and 'maru-zero' at the same time.")
+  }
+  let (l, r) = (lower(text.lang), lower(text.region))
+  let number-script = if l == "zh" {
+    let key = if r in ("hk", "mo", "tw") {
+      "traditional_chinese"
+    } else {
+      "simplified_chinese"
+    }
+    let val = if daxie {
+      "upper"
+    } else if maru-zero {
+      (lower: (circle_as_zero: true))
+    } else {
+      (lower: (circle_as_zero: false))
+    }
+    let ret = (:)
+    ret.insert(key, val)
+    ret
+  } else if l == "ja" {
+    let val = if daxie {
+      "upper"
+    } else if maru-zero {
+      (lower: (circle_as_zero: true))
+    } else {
+      (lower: (circle_as_zero: false))
+    }
+    (japanese: val)
+  } else if l == "ko" {
+    let val = if daxie {
+      "upper"
+    } else if maru-zero {
+      (lower: (circle_as_zero: true))
+    } else {
+      (lower: (circle_as_zero: false))
+    }
+    (korean: val)
+  } else {
+    panic("Unsupported language: " + l)
+  }
   str(
-    plg.sep_by_ten_thousands(
+    plg.number_to_text(
       cbor.encode((
-        lang: if lang == none { text.lang } else { lang },
-        region: if region == none { text.region } else { region },
         value: value,
-        separators: separators,
+        number_script: number-script,
+        count_method: count-method,
       )),
     ),
   )
@@ -474,42 +513,6 @@
   } else {
     cjk-date-format(pfx: reiwa-pfx, date, established: reiwa.year(), ..args)
   }
-}
-
-/// Format a number in Chinese currency style. This function is based on ```typ numbering("壹", v)``` but adds units for the whole number and the first two decimal places.
-/// ```example
-/// #conjak.daxie(123456)\
-/// #conjak.daxie(8642.99)\
-/// #conjak.daxie(2356, u1: "圆", whole: "正")
-/// ```
-///
-/// - v (int, float): The value to format.
-/// - u1 (str): The unit for the whole number (e.g., "元").
-/// - u2 (str): The unit for the first decimal place (e.g., "角").
-/// - u3 (str): The unit for the second decimal place (e.g., "分").
-/// - whole (str): The string to append if the value is a whole number (e.g., "整").
-/// -> str
-#let daxie(v, u1: "元", u2: "角", u3: "分", whole: "整") = {
-  // this only works for Chinese
-  // check if float. If so, check the last two digits
-  let ret = numbering("壹", calc.floor(v)) + u1
-  if type(v) == float {
-    let last-two-digits = calc.round(calc.rem(v * 100, 100))
-    let first-digit = calc.floor(last-two-digits / 10)
-    let second-digit = calc.floor(calc.rem(last-two-digits, 10))
-    if first-digit != 0 {
-      ret += numbering("壹", first-digit) + u2
-    }
-    if second-digit != 0 {
-      ret += numbering("壹", second-digit) + u3
-    }
-    if last-two-digits == 0 {
-      ret += whole
-    }
-  } else {
-    ret += whole
-  }
-  ret
 }
 
 /// Convert a date to the lunar calendar format.

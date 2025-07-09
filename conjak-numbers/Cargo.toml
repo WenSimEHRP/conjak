@@ -12,6 +12,7 @@ license = "MIT"
 enum-ordinalize = "4.2"
 num-bigint = "0.4"
 num-traits = "0.2"
+serde = { version = "1.0", features = ["derive"] }
 
 [dev-dependencies]
 assert-eq-float = "0.1"

@@ -114,8 +114,19 @@ dependencies = [
  "anyhow",
  "chinese-lunisolar-calendar",
  "ciborium",
+ "conjak-numbers",
  "serde",
  "typst-wasm-protocol",
+]
+
+[[package]]
+name = "conjak-numbers"
+version = "0.1.0"
+dependencies = [
+ "enum-ordinalize",
+ "num-bigint",
+ "num-traits",
+ "serde",
 ]
 
 [[package]]
@@ -205,6 +216,25 @@ name = "log"
 version = "0.4.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "13dc2df351e3202783a1fe0d44375f7295ffb4049267b0f3018346dc122a1d94"
+
+[[package]]
+name = "num-bigint"
+version = "0.4.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a5e44f723f1133c9deac646763579fdb3ac745e418f2a7af9cd0c431da1f20b9"
+dependencies = [
+ "num-integer",
+ "num-traits",
+]
+
+[[package]]
+name = "num-integer"
+version = "0.1.46"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7969661fd2958a5cb096e56c8e1ad0444ac2bbcd0061bd28660485a44879858f"
+dependencies = [
+ "num-traits",
+]
 
 [[package]]
 name = "num-traits"
