@@ -11,7 +11,7 @@ pub trait NumberToChinese {
     /// ## 範例
     ///
     /// ```rust
-    /// use conjak_number::{ChineseCountMethod, NumberScript, ScriptStyle, NumberToChinese};
+    /// use conjak_numbers::{ChineseCountMethod, NumberScript, ScriptStyle, NumberToChinese};
     ///
     /// assert_eq!("一百二十三京四千五百六十七兆八千九百零一億二千三百四十五萬六千七百八十九", 1234567890123456789u64.to_chinese(NumberScript::TraditionalChinese(ScriptStyle::Lower { circle_as_zero: false }), ChineseCountMethod::TenThousand).unwrap());
     /// ```
@@ -26,7 +26,7 @@ pub trait NumberToChinese {
     /// ## 範例
     ///
     /// ```rust
-    /// use conjak_number::{
+    /// use conjak_numbers::{
     ///     NumberScript, ScriptStyle, NumberToChinese,
     /// };
     ///

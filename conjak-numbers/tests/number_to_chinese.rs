@@ -1,4 +1,4 @@
-use conjak_number::{
+use conjak_numbers::{
     ChineseCountMethod, NumberScript, ScriptStyle, NumberToChinese, NumberToChineseError,
 };
 

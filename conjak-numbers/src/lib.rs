@@ -10,7 +10,7 @@ This crate can convert Rust's primitive number data types to Chinese numbers as 
 ```rust
 # #[cfg(all(feature = "number-to-chinese", feature = "chinese-to-number"))]
 # {
-use conjak_number::{ChineseCase, ChineseCountMethod, ChineseVariant, NumberToChinese, ChineseToNumber};
+use conjak_numbers::{ChineseCase, ChineseCountMethod, ChineseVariant, NumberToChinese, ChineseToNumber};
 
 assert_eq!("一二三", 123i8.to_chinese_naive(ChineseVariant::Traditional, ChineseCase::Lower));
 
