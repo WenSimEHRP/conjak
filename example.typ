@@ -46,4 +46,6 @@
 
 Source code for this example:
 
-#raw(read("example.typ"), lang: "typ")
+#import "@preview/zebraw:0.5.5": *
+#show: zebraw.with(..zebraw-themes.zebra)
+#raw(read("example.typ"), lang: "typ", block: true)
