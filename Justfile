@@ -12,3 +12,7 @@ build_package_docs:
     typst c docs.typ \
         --input version="$(git describe --tags || echo "UNKNOWN")" \
         --input date="$(git log --max-count=1 --pretty='%cd' --date=iso-strict)"
+
+# build the package's example
+build_example:
+    typst c example.typ --format svg
