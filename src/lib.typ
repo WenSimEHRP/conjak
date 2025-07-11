@@ -1,6 +1,5 @@
 #let plg = plugin("conjak.wasm")
 
-
 /// Generate a string with the given value formatted with thousands separators.
 /// ```example
 /// #set text(lang: "ja", region: "jp")
@@ -519,9 +518,13 @@
 /// Convert a date to the lunar calendar format.
 ///
 /// - date (datetime): The date to convert to the lunar calendar.
+/// - numeric-november (auto, bool): Whether to use "十一月" for November.
+/// - numeric-december (auto, bool): Whether to use "十二月" for December
 /// ->
 #let format-lunar-date(
   date,
+  numeric-november: false,
+  numeric-december: false,
 ) = {
   let data = cbor(
     plg.solar_to_lunisolar(
@@ -535,7 +538,11 @@
   (
     data.year
       + "年"
-      + numbering("一", data.month)
+      + if data.month == 11 and not numeric-november {
+        "腊"
+      } else if data.month == 12 and not numeric-december {
+        "冬"
+      } else { numbering("一", data.month) }
       + "月"
       + (
         if data.day <= 10 {
