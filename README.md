@@ -14,10 +14,24 @@ It is designed with simplicity in mind, and with maximum compatibility with diff
 
 I do not aim to cover all possible utilities related to CJK number formatting, but rather to provide a solid foundation for common use cases. If you have specific needs or suggestions, feel free to open an issue on the GitHub repository.
 
-### Localization
-
 **DISCLAIMER**: I am not a Japanese nor a Korean expert, so I have relied on existing resources (i.e. Wikipedia, LLM) to implement features for these languages. If you find any mistakes or have suggestions for improvements, please let me know.
 
 Functions provided by this library can adapt to the current text language and region (hence their outputs are `content` but not `string` or `int`). See each function's documentation for details.
 
-![Example](https://raw.githubusercontent.com/WenSimEHRP/conjak/master/example.svg)
+## Building
+
+WASM module:
+
+- **cargo**
+- **coreutils**
+
+Make sure to do `rustup target add wasm32-unknown-unknown` before compiling.
+
+Documentation:
+
+- **typst**
+- [**sarasa-gothic**](https://github.com/be5invis/Sarasa-Gothic)
+
+## Examples
+
+![Examples](https://raw.githubusercontent.com/WenSimEHRP/conjak/master/example.svg)

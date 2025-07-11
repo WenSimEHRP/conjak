@@ -11,7 +11,9 @@ mkShell {
     rustup
     coreutils
     typst
+    # it has decent CJK support
     sarasa-gothic
+    just
   ];
   shellHook = ''
     export FONTCONFIG_FILE=${fonts}
