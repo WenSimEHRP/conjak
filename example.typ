@@ -10,25 +10,25 @@
     #it\
     // varies based on locale settings
     #set text(lang: it.at(0), region: it.at(1))
-    #sep-by-ten-thousands(12315649494)\
-    #sep-by-ten-thousands(1145141919810)\
-    #sep-by-ten-thousands(10086)\
-    #cjk-date-format(datetime(year: 1949, month: 7, day: 1))\
-    #cjk-date-format(datetime(year: 2000, month: 12, day: 31))\
-    #cjk-date-format(datetime(year: 1949, month: 7, day: 30), arabic: true)\
-    #roc-date-format(datetime(year: 1949, month: 9, day: 30), arabic: true)\
-    #roc-date-format(datetime(year: 1912, month: 7, day: 30), arabic: false)\
-    #roc-date-format(datetime(year: 1911, month: 7, day: 31), alternative-30: true)\
-    #japan-date-format(datetime(year: 1912, month: 7, day: 29), alternative-20: true)\
-    #japan-date-format(datetime(year: 1912, month: 7, day: 30))\
-    #japan-date-format(datetime(year: 1989, month: 1, day: 1), alternative-january: true)\
-    #japan-date-format(datetime(year: 1989, month: 1, day: 6))\
-    #japan-date-format(datetime(year: 1989, month: 1, day: 6), arabic: true)\
-    #japan-date-format(datetime(year: 1989, month: 1, day: 7))\
-    #japan-date-format(datetime(year: 2025, month: 6, day: 17))\
-    #japan-date-format(datetime(year: 9999, month: 6, day: 17))\
-    #juche-date-format(datetime(year: 2025, month: 6, day: 17))\
-    #juche-date-format(datetime(year: 1912, month: 6, day: 17))\
+    #format-number(12315649494)\
+    #format-number(1145141919810)\
+    #format-number(10086)\
+    #format-cjk-date(datetime(year: 1949, month: 7, day: 1))\
+    #format-cjk-date(datetime(year: 2000, month: 12, day: 31))\
+    #format-cjk-date(datetime(year: 1949, month: 7, day: 30), arabic: true)\
+    #format-roc-date(datetime(year: 1949, month: 9, day: 30), arabic: true)\
+    #format-roc-date(datetime(year: 1912, month: 7, day: 30), arabic: false)\
+    #format-roc-date(datetime(year: 1911, month: 7, day: 31), alternative-30: true)\
+    #format-japanese-date(datetime(year: 1912, month: 7, day: 29), alternative-20: true)\
+    #format-japanese-date(datetime(year: 1912, month: 7, day: 30))\
+    #format-japanese-date(datetime(year: 1989, month: 1, day: 1), alternative-january: true)\
+    #format-japanese-date(datetime(year: 1989, month: 1, day: 6))\
+    #format-japanese-date(datetime(year: 1989, month: 1, day: 6), arabic: true)\
+    #format-japanese-date(datetime(year: 1989, month: 1, day: 7))\
+    #format-japanese-date(datetime(year: 2025, month: 6, day: 17))\
+    #format-japanese-date(datetime(year: 9999, month: 6, day: 17))\
+    #format-juche-date(datetime(year: 2025, month: 6, day: 17))\
+    #format-juche-date(datetime(year: 1912, month: 6, day: 17))\
   ]),
   [
     Lunar calendar:\
@@ -38,7 +38,7 @@
       datetime(year: 1912, month: 6, day: 19),
       datetime(year: 1901, month: 12, day: 20),
     ) {
-      to_lunar(it) + linebreak()
+      format-lunar-date(it) + linebreak()
     }
   ],
   ..range(4).map(i => grid.hline(y: i))

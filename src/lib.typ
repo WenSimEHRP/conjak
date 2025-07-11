@@ -1,20 +1,21 @@
 #let plg = plugin("conjak.wasm")
 
+
 /// Generate a string with the given value formatted with thousands separators.
 /// ```example
 /// #set text(lang: "ja", region: "jp")
-/// #conjak.sep-by-ten-thousands(12345670000000)\
-/// #conjak.sep-by-ten-thousands(1145141919810)\
-/// #conjak.sep-by-ten-thousands(1145141919810000)\
-/// #conjak.sep-by-ten-thousands(135700012255)\
+/// #conjak.format-number(12345670000000)\
+/// #conjak.format-number(1145141919810)\
+/// #conjak.format-number(1145141919810000)\
+/// #conjak.format-number(135700012255)\
 /// ```
 ///
-/// - value (int | float): The number to format
+/// - value (int, float): The number to format
 /// - daxie (bool): Whether or not to use "大写" or "大字"
 /// - maru-zero (bool): Whether or not to use "〇" as zero
 /// - count-method (str): The counting method to use. Can be "high", "middle", "low", or "ten_thousand"
 /// -> str
-#let sep-by-ten-thousands(
+#let format-number(
   value,
   daxie: false,
   maru-zero: false,
@@ -181,21 +182,21 @@
 
 /// Format a date in CJK style, including the year, month, and day.
 /// ```example
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )
 /// ```
 ///
 /// - pfx (str, content): Prefix for the date string.
 /// ```example
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   pfx: "西元",
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )
 /// ```
 /// - negative-pfx (str, content): Prefix for negative years.
 /// ```example
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   negative-pfx: "西元前",
 ///   datetime(year: -2023, month: 10, day: 1),
 /// )
@@ -204,64 +205,64 @@
 /// - established (int): The year when the era was established.
 /// - arabic (auto, bool): Whether to use Arabic numerals for the year.
 /// ```example
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   arabic: true,
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )
 /// ```
 /// - alternative-january (auto, bool): Whether to use "元月" for January.
 /// ```example
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   alternative-january: true,
 ///   datetime(year: 2023, month: 1, day: 1),
 /// )
 /// ```
 /// - alternative-20 (auto, bool): Whether to use the alternative 2x day format (廿x)
 /// ```example
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   alternative-20: true,
 ///   datetime(year: 2023, month: 2, day: 20),
 /// )\
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   alternative-20: true,
 ///   datetime(year: 2023, month: 2, day: 25),
 /// )
 /// ```
 /// - alternative-30 (auto, bool): Whether to use the alternative 3x day format (卅x).
 /// ```example
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   alternative-30: true,
 ///   datetime(year: 2023, month: 3, day: 30),
 /// )\
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   alternative-30: true,
 ///   datetime(year: 2023, month: 3, day: 31),
 /// )
 /// ```
 /// - weekday (auto, bool, array): Whether to include the weekday in the format. The first day of the week is Monday.
 /// ```example
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   weekday: true,
 ///   datetime(year: 2025, month: 6, day: 22),
 /// )\
 /// #set text(lang: "ja")
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   weekday: auto,
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )\
 /// #set text(lang: "ko")
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   weekday: true,
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )\
 /// #set text(lang: "zh")
-/// #conjak.cjk-date-format(
+/// #conjak.format-cjk-date(
 ///   weekday: ("牛奶奶", "柳奶奶", "卖牛奶", "柳奶", "流奶", [牛奶], [椰奶！]),
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )
 /// ```
 /// -> content
-#let cjk-date-format(
+#let format-cjk-date(
   pfx: none,
   negative-pfx: none,
   date,
@@ -383,19 +384,19 @@
 
 /// Format a date in the Republic of China (ROC) calendar style.
 /// ```example
-/// #conjak.roc-date-format(
+/// #conjak.format-roc-date(
 ///   datetime(year: 1949, month: 9, day: 30),
 /// )\
-/// #conjak.roc-date-format(
+/// #conjak.format-roc-date(
 ///   datetime(year: 1912, month: 10, day: 1),
 /// )\
-/// #conjak.roc-date-format(
+/// #conjak.format-roc-date(
 ///   datetime(year: 1910, month: 10, day: 1),
 /// )\
-/// #conjak.roc-date-format(
+/// #conjak.format-roc-date(
 ///   datetime(year: 2025, month: 10, day: 1),
 /// )\
-/// #conjak.roc-date-format(
+/// #conjak.format-roc-date(
 ///   datetime(year: 2025, month: 10, day: 1),
 ///   arabic: true,
 /// )
@@ -404,9 +405,9 @@
 /// - pfx (str, content): Prefix for the date string.
 /// - negative-pfx (str, content): Prefix for negative years.
 /// - date (datetime): The date to format.
-/// - ..args (named arguments): Additional arguments for customization. See @cjk-date-format for details.
+/// - ..args (named arguments): Additional arguments for customization. See @format-cjk-date for details.
 /// -> content
-#let roc-date-format(date, pfx: auto, negative-pfx: auto, ..args) = {
+#let format-roc-date(date, pfx: auto, negative-pfx: auto, ..args) = {
   let default-pfx = flex-content(
     zh: (cn: "民国", tw: "民國"),
     ja: "民国",
@@ -417,7 +418,7 @@
     ja: "民国前",
     ko: "민국전",
   )
-  cjk-date-format(
+  format-cjk-date(
     pfx: if pfx == auto { default-pfx } else { pfx },
     negative-pfx: if negative-pfx == auto { default-negative-pfx } else { negative-pfx },
     date,
@@ -431,9 +432,9 @@
 /// - pfx (str, content): Prefix for the date string.
 /// - negative-pfx (str, content): Prefix for negative years.
 /// - date (datetime): The date to format.
-/// - ..args (named arguments): Additional arguments for customization. See @cjk-date-format for details.
+/// - ..args (named arguments): Additional arguments for customization. See @format-cjk-date for details.
 /// -> content
-#let juche-date-format(date, pfx: auto, negative-pfx: auto, ..args) = {
+#let format-juche-date(date, pfx: auto, negative-pfx: auto, ..args) = {
   let default-pfx = flex-content(
     zh: (cn: "主体", tw: "主體"),
     ja: "主体",
@@ -444,7 +445,7 @@
     ja: "主体前",
     ko: "주체전",
   )
-  cjk-date-format(
+  format-cjk-date(
     pfx: if pfx == auto { default-pfx } else { pfx },
     negative-pfx: if negative-pfx == auto { default-negative-pfx } else { negative-pfx },
     date,
@@ -455,20 +456,20 @@
 
 /// Format a date in the Japanese era style (e.g., Meiji, Taisho, Showa, Heisei, Reiwa).
 /// ```example
-/// #conjak.japan-date-format(
+/// #conjak.format-japanese-date(
 ///   datetime(year: 2023, month: 10, day: 1),
 /// )\
-/// #conjak.japan-date-format(
+/// #conjak.format-japanese-date(
 ///   datetime(year: 1989, month: 1, day: 6),
 /// )\
-/// #conjak.japan-date-format(
+/// #conjak.format-japanese-date(
 ///   datetime(year: 1989, month: 1, day: 7),
 /// )
 /// ```
 /// - date (datetime): The date to format.
-/// - ..args (named arguments): Additional arguments for customization. See @cjk-date-format for details.
+/// - ..args (named arguments): Additional arguments for customization. See @format-cjk-date for details.
 /// -> content
-#let japan-date-format(date, ..args) = {
+#let format-japanese-date(date, ..args) = {
   let meiji = datetime(year: 1868, month: 9, day: 1)
   let taisho = datetime(year: 1912, month: 7, day: 30)
   let showa = datetime(year: 1926, month: 12, day: 25)
@@ -501,17 +502,17 @@
     ko: "레와",
   )
   if date < meiji {
-    cjk-date-format(date, ..args)
+    format-cjk-date(date, ..args)
   } else if date < taisho {
-    cjk-date-format(pfx: meiji-pfx, date, established: meiji.year(), ..args)
+    format-cjk-date(pfx: meiji-pfx, date, established: meiji.year(), ..args)
   } else if date < showa {
-    cjk-date-format(pfx: taisho-pfx, date, established: taisho.year(), ..args)
+    format-cjk-date(pfx: taisho-pfx, date, established: taisho.year(), ..args)
   } else if date < heisei {
-    cjk-date-format(pfx: showa-pfx, date, established: showa.year(), ..args)
+    format-cjk-date(pfx: showa-pfx, date, established: showa.year(), ..args)
   } else if date < reiwa {
-    cjk-date-format(pfx: heisei-pfx, date, established: heisei.year(), ..args)
+    format-cjk-date(pfx: heisei-pfx, date, established: heisei.year(), ..args)
   } else {
-    cjk-date-format(pfx: reiwa-pfx, date, established: reiwa.year(), ..args)
+    format-cjk-date(pfx: reiwa-pfx, date, established: reiwa.year(), ..args)
   }
 }
 
@@ -519,7 +520,7 @@
 ///
 /// - date (datetime): The date to convert to the lunar calendar.
 /// ->
-#let to_lunar(
+#let format-lunar-date(
   date,
 ) = {
   let data = cbor(
