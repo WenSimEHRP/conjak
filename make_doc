@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 VERSION=$(git describe --tags || echo "UNKNOWN")
-typst c docs.typ --input version="$VERSION" --input date="$(date --iso-8601)"
+typst c docs.typ --input version="$VERSION" --input date="$(git log --max-count=1 --pretty='%cd' --date=iso-strict)"
